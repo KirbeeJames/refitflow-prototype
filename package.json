@@ -2,9 +2,11 @@
   "name": "refitflow-prototype",
   "private": true,
   "version": "0.1.0",
+  "type": "module",
   "scripts": {
     "dev": "vite",
-    "start": "vite --host 127.0.0.1"
+    "start": "vite --host 127.0.0.1",
+    "check": "node src/data/selectors.check.js"
   },
   "dependencies": {
     "@vitejs/plugin-react": "latest",
