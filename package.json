@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "start": "vite --host 127.0.0.1",
-    "check": "node src/data/selectors.check.js"
+    "check": "node src/data/selectors.check.js",
+    "build": "vite build"
   },
   "dependencies": {
     "react": "19.3.0",
