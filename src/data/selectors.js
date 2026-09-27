@@ -44,12 +44,36 @@ export function vesselFinance(s, v) {
   };
 }
 
-// ponytail: cost-weighted completion with in-progress counted as half; replace with per-item % complete once tracked
+export const itemCompletion = i =>
+  i.status === 'Complete' ? 1 : i.percentComplete != null ? i.percentComplete / 100 : i.status === 'In progress' ? 0.5 : 0;
+
+// Cost-weighted: a €100k job half done moves the needle more than a finished €5k one.
 export function progressPct(s, items) {
   const total = sum(items, i => itemCost(s, i));
   if (!total) return 0;
-  const done = sum(items, i => itemCost(s, i) * (i.status === 'Complete' ? 1 : i.status === 'In progress' ? 0.5 : 0));
-  return Math.round((done / total) * 100);
+  return Math.round((sum(items, i => itemCost(s, i) * itemCompletion(i)) / total) * 100);
+}
+
+export const suggestCostBasis = (contract, reason) => {
+  const clause = contract?.clauses?.find(c => c.topic === reason);
+  return clause ? `Contract clause ${clause.ref} (${clause.title})` : '';
+};
+
+// ponytail: regex pass over pasted text, not document intelligence; every field lands in an editable form
+export function extractContractTerms(text) {
+  const num = s => Number(s.replace(/[.,\s](?=\d{3}\b)/g, '').replace(',', '.'));
+  const value = text.match(/(?:€|EUR)\s?([\d.,\s]{4,})/i);
+  const dates = [...text.matchAll(/\b(\d{4}-\d{2}-\d{2})\b/g)].map(m => m[1]).sort();
+  const law = text.match(/governed by (?:the )?(?:laws? of )?([A-Z][A-Za-z ]+?)(?: law)?[.,;\n]/);
+  const warranty = text.match(/warranty[^.\n]*?(\d+)\s*months?/i);
+  const yard = text.match(/(?:shipyard|builder|contractor)\s*[:\-]\s*([^\n,]+)/i);
+  return {
+    ...(value && { value: num(value[1]) }),
+    ...(dates.length && { startDate: dates[0], endDate: dates.at(-1) }),
+    ...(law && { governingLaw: `${law[1].trim()} law` }),
+    ...(warranty && { warranty: `${warranty[1]} months from redelivery` }),
+    ...(yard && { shipyardName: yard[1].trim() }),
+  };
 }
 
 export function programme(v, today) {

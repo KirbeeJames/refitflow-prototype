@@ -1,6 +1,6 @@
 # RefitFlow — Status & Handoff
 
-_Last updated: 2026-09-25_
+_Last updated: 2026-09-27_
 
 ## What it is
 A SaaS tool for yacht management companies to run a vessel refit from contract signature to redelivery: contract, master work list, contractor quotes, live Gantt, change orders, class/survey items, customs (IPR + temporary admission) and owner reporting, across several vessels at once.
@@ -30,18 +30,19 @@ The deployed app is a **polished visual prototype, not a working tool**. The des
 
 Rough coverage of the original spec: ~15%.
 
-## Data model rebuild — done (2026-09-25)
-Branch `feat/data-model-rebuild`, verified in the browser, not yet merged or deployed.
+## Built so far (branch `feat/data-model-rebuild`, not yet merged or deployed)
+**2026-09-25 — data model:** normalized entities, one place for all calculations (`src/data/selectors.js`, checked by `npm run check`), every screen on live data.
 
-- `src/data/model.js` — entity schema and constants
-- `src/data/seed.js` — distinct data per vessel (15 / 8 / 11 items)
-- `src/data/selectors.js` — every derived number; `npm run check` verifies the maths
-- `src/data/store.js` — state + approve-change-order action
-- `src/app.jsx` — every screen reads live data
+**2026-09-27 — punch list pass:**
+- Saves in the browser (refresh keeps changes); reset button in the sidebar
+- Real forms: add vessel, add/edit work items (class/survey, IPR, priority override, % complete), change orders (raise/approve/reject, cost basis from contract clauses), milestones
+- Contract screen with Draft → Under Review → Signed; shipyard modules locked until signed; terms pulled from pasted text for review
+- Gantt drag-to-reschedule, click-to-edit, zoom, clash flags
+- Dashboard six-week view and milestones
+- Inbox logs evidence against work items; over-invoicing needs confirmation
+- Weekly/monthly reports with commentary, distribution list and archive
 
-Fixed as a result: work list tabs filter; change orders roll into totals; Gantt uses real dates with a today line and contractor clash flags; department bars scale; Solstice no longer under temporary admission; class register, alerts and owner report all derive from data.
-
-Still missing: saving (refresh resets), edit forms, contract gating. See `PUNCH_LIST.md`.
+Still open: shared database (needs your go-ahead on Supabase), phone navigation, delete/archive, multi-user. See `PUNCH_LIST.md`.
 
 ## Roadmap (commercial product)
 Build in this order — each layer depends on the one below.

@@ -7,6 +7,13 @@ const item = (o) => ({
   quoted: null, committed: null, invoiced: 0, notes: '', ownerRelevant: false, sources: [], classSurvey: null, ...o,
 });
 
+const STANDARD_CLAUSES = [
+  { ref: '3.4', title: 'Variations to the specification', topic: 'Scope change' },
+  { ref: '4.2', title: 'Additional works on discovered defects', topic: 'Discovered condition' },
+  { ref: '6.1', title: 'Price adjustment for materials', topic: 'Price escalation' },
+  { ref: '11.3', title: 'Warranty period and exclusions', topic: 'Warranty' },
+];
+
 const lr = (reference, category, dueDate, surveyorNotes, evidenceStatus = 'Pending') =>
   ({ surveyType: 'Special', society: "Lloyd's Register", reference, category, dueDate, surveyorNotes, evidenceStatus });
 
@@ -14,13 +21,13 @@ export const seed = {
   vessels: [
     { id: 'meridian', name: 'M/Y Meridian', imo: 'IMO 9821140', flag: 'Cayman Islands', loaMetres: 62.4, location: 'Palma de Mallorca',
       refitStart: '2026-07-20', refitEnd: '2027-01-04', budget: 650000, stageNote: 'Winter refit',
-      temporaryAdmission: { entryDate: '2025-12-25' }, onboardedVia: 'new' },
+      temporaryAdmission: { entryDate: '2025-12-25' }, onboardedVia: 'new', distribution: [] },
     { id: 'solstice', name: 'M/Y Solstice', imo: 'IMO 9784201', flag: 'Malta', loaMetres: 38.0, location: 'Viareggio, Italy',
       refitStart: '2026-08-17', refitEnd: '2026-10-12', budget: 160000, stageNote: 'Yard period',
-      temporaryAdmission: null, onboardedVia: 'new' },
+      temporaryAdmission: null, onboardedVia: 'new', distribution: [] },
     { id: 'haven', name: 'M/Y Haven', imo: 'IMO 9705528', flag: 'Marshall Islands', loaMetres: 54.2, location: 'Genoa, Italy',
       refitStart: '2026-09-04', refitEnd: '2026-11-27', budget: 260000, stageNote: 'Special Survey',
-      temporaryAdmission: { entryDate: '2026-03-13' }, onboardedVia: 'historical-import' },
+      temporaryAdmission: { entryDate: '2026-03-13' }, onboardedVia: 'historical-import', distribution: [] },
   ],
 
   contractors: [
@@ -38,15 +45,15 @@ export const seed = {
     { id: 'k-meridian', vesselId: 'meridian', type: 'ICOMIA Refit Contract', shipyardContractorId: 'c-northstar', clientParty: 'Meridian Marine Ltd',
       value: 420000, paymentSchedule: [{ label: 'Signature', pct: 30 }, { label: 'Haul-out', pct: 30 }, { label: 'Relaunch', pct: 30 }, { label: 'Redelivery', pct: 10 }],
       warranty: '6 months from redelivery', warrantyUntil: '2027-07-04', startDate: '2026-07-20', endDate: '2027-01-04',
-      governingLaw: 'English law', status: 'Signed', sourceDocument: null },
+      governingLaw: 'English law', status: 'Signed', clauses: STANDARD_CLAUSES, signedByShipyard: true, signedByClient: true, sourceDocument: null },
     { id: 'k-solstice', vesselId: 'solstice', type: 'ICOMIA Refit Contract', shipyardContractorId: 'c-viareggio', clientParty: 'Solstice Yachting Ltd',
       value: 120000, paymentSchedule: [{ label: 'Signature', pct: 40 }, { label: 'Mid-point', pct: 40 }, { label: 'Redelivery', pct: 20 }],
       warranty: '3 months from redelivery', warrantyUntil: '2027-01-12', startDate: '2026-08-17', endDate: '2026-10-12',
-      governingLaw: 'Italian law', status: 'Signed', sourceDocument: null },
+      governingLaw: 'Italian law', status: 'Signed', clauses: STANDARD_CLAUSES, signedByShipyard: true, signedByClient: true, sourceDocument: null },
     { id: 'k-haven', vesselId: 'haven', type: 'ICOMIA Refit Contract', shipyardContractorId: 'c-liguria', clientParty: 'Haven Maritime Inc.',
       value: 180000, paymentSchedule: [{ label: 'Signature', pct: 30 }, { label: 'Docking', pct: 40 }, { label: 'Class endorsement', pct: 30 }],
       warranty: '6 months from redelivery', warrantyUntil: '2027-05-27', startDate: '2026-09-04', endDate: '2026-11-27',
-      governingLaw: 'English law', status: 'Signed', sourceDocument: null },
+      governingLaw: 'English law', status: 'Signed', clauses: STANDARD_CLAUSES, signedByShipyard: true, signedByClient: true, sourceDocument: null },
   ],
 
   iprAuthorizations: [
@@ -101,6 +108,9 @@ export const seed = {
     { id: 'co-s002', reference: 'CO-002', workItemId: 's2', title: 'Windlass brake band renewal', reason: 'Discovered condition', originalCost: 15100, revisedCost: 18300, status: 'Approved', dateRaised: '2026-09-15', decidedAt: '2026-09-16', costBasis: 'Contract clause 5.3' },
     { id: 'co-h001', reference: 'CO-001', workItemId: 'h4', title: 'Rudder stock machining', reason: 'Discovered condition', originalCost: 21000, revisedCost: 24750, status: 'Approved', dateRaised: '2026-09-17', decidedAt: '2026-09-18', costBasis: 'Contract clause 4.2' },
   ],
+
+  notes: [],
+  reports: [],
 
   milestones: [
     { id: 'ms-m1', vesselId: 'meridian', name: 'Bridge sea trial', date: '2026-10-09' },

@@ -8,6 +8,10 @@ export const CLASS_CATEGORIES = ['Condition of Class', 'Recommendation', 'Memo i
 export const CONTRACT_STATUSES = ['Draft', 'Under Review', 'Signed'];
 export const CO_REASONS = ['Scope change', 'Price escalation', 'Discovered condition'];
 export const TA_LIMIT_MONTHS = 18;
+export const EVIDENCE_KINDS = ['email', 'invoice', 'whatsapp', 'manual'];
+export const BUDGET_CATEGORIES = ['Shipyard works', 'Paint', 'Equipment', 'Interior', 'Owner discretionary'];
+// EU temporary admission only applies to non-EU flagged yachts.
+export const EU_FLAGS = ['Austria', 'Belgium', 'Bulgaria', 'Croatia', 'Cyprus', 'Czechia', 'Denmark', 'Estonia', 'Finland', 'France', 'Germany', 'Greece', 'Hungary', 'Ireland', 'Italy', 'Latvia', 'Lithuania', 'Luxembourg', 'Malta', 'Netherlands', 'Poland', 'Portugal', 'Romania', 'Slovakia', 'Slovenia', 'Spain', 'Sweden'];
 
 /**
  * @typedef {{id:string,name:string,imo:string,flag:string,loaMetres:number,location:string,refitStart:string,refitEnd:string,

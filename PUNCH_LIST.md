@@ -1,29 +1,39 @@
 # RefitFlow punch list
 
-## Open
-- [ ] Persistence — state resets on refresh. Supabase tables mirroring `src/data/seed.js` arrays; swap the reducer in `store.js`.
-- [ ] Real forms: add vessel, add/edit work item, raise change order, reject change order, priority override (all still `alert()` stubs).
-- [ ] Contract gating: Draft/Under Review should actually lock Work list, Gantt and Change orders (banner only today).
-- [ ] Gantt: drag to reschedule, zoom (week/month/full).
-- [ ] Dashboard: mini Gantt preview and upcoming-milestones card (in spec, not built).
-- [ ] Inbox & imports screen is still fully static.
-- [ ] Report history/archive and "email to distribution list".
-- [ ] Progress is cost-weighted with in-progress = 50%; replace with per-item % complete.
-- [ ] Contractor-clash rule ignores shipyards (parallel crews) — confirm with James.
+## Open — needs James
+- [ ] Confirm Supabase as the backend. Data currently saves in the browser only (one device, one browser). `src/data/store.js` is the single swap point.
 - [ ] Customs advisor sign-off on IPR + temporary admission logic.
-- [ ] Decide department taxonomy (generic 8 vs Zulu categories).
-- [ ] Pin dependency versions (all `latest`).
-- [ ] Gantt card scrolls sideways under ~1000px wide.
-- [ ] Switch GitHub repo back to private; delete the old locked Vercel project.
+- [ ] Department taxonomy: generic 8 vs Zulu categories (affects importing real worklists).
+- [ ] Contractor-clash rule ignores shipyards (parallel crews) — confirm that's right.
+- [ ] Switch GitHub repo back to private; delete the old locked Vercel project (`i-just-brainstormed-with-claude-what`).
+- [ ] `gh` CLI not logged in on this machine — needed to open PRs from here.
 - [ ] Strix gate skipped — Docker/API key not set up. Greptile not configured on this repo.
 
+## Open — build work
+- [ ] Phone navigation: below 650px the sidebar is hidden with no replacement (inherited from the original build; spec only asks for tablet).
+- [ ] No delete/archive for work items, vessels or change orders.
+- [ ] Multi-user: auth, per-company data isolation, roles (manager / shipyard / owner's rep), field-level change history.
+- [ ] Contract PDF upload (text paste works; PDF needs parsing).
+- [ ] Email/invoice mailbox connector, WhatsApp import, historical bulk import (roadmap phases 7–9).
+- [ ] Emailing reports to the distribution list (archive + recipients work; sending needs a mail service).
+- [ ] Gantt: resize bars from either end (drag moves the whole job only).
+
 ## Done
-- [x] Normalized data model: Vessel, Contract, Contractor, WorkItem (+ class survey), IPR authorisation, ChangeOrder, Milestone (2026-09-25)
-- [x] Distinct seed data per vessel; Solstice (Malta/EU flag) no longer under temporary admission (2026-09-25)
-- [x] All derived numbers in `src/data/selectors.js`, checked by `npm run check` (2026-09-25)
-- [x] Change-order approval rolls into item, work list, dashboard and report totals (2026-09-25)
-- [x] Work list tabs filter (Working / Quoted with variance / IPR tracker) + VAT subtotals (2026-09-25)
-- [x] Gantt from real dates, today line, contractor overlap flags (2026-09-25)
-- [x] Department bars scale correctly (2026-09-25)
-- [x] Class register grouped by category, sorted by due date, live counts (2026-09-25)
-- [x] Owner report built from live data incl. Owner's interests section (2026-09-25)
+- [x] Normalized data model, seed per vessel, selectors, `npm run check` (2026-09-25)
+- [x] Change-order roll-up, work list tabs, real-date Gantt, dept bars, class register, live owner report (2026-09-25)
+- [x] Saves in the browser — refresh keeps changes; "reset demo data" in the sidebar (2026-09-27)
+- [x] Forms: add vessel, add/edit work item (incl. class/survey fields, IPR authorisation, priority override, % complete), raise/approve/reject change order, add milestone (2026-09-27)
+- [x] Validation: EU-flagged vessels can't be put under temporary admission; over-invoicing needs confirmation; report recipients checked (2026-09-27)
+- [x] Contract screen: Draft → Under Review → Signed with both-party sign-off; terms read-only once signed (2026-09-27)
+- [x] Contract gating: work list, Gantt and change orders are preview-only until signed (2026-09-27)
+- [x] Pull terms from pasted contract text, reviewed before applying (2026-09-27)
+- [x] "From contract" cost basis on change orders (2026-09-27)
+- [x] Gantt: drag to reschedule, click to edit, zoom (week / month / full), pulsing clash flag, status icons (2026-09-27)
+- [x] Dashboard: six-week mini Gantt and upcoming milestones (2026-09-27)
+- [x] Inbox: log emails/invoices/chat updates against work items or as project notes; full evidence trail (2026-09-27)
+- [x] Reports: weekly/monthly, key-moments commentary, distribution list, archive with history (2026-09-27)
+- [x] Per-item % complete feeds progress (2026-09-27)
+- [x] Dependencies pinned (2026-09-27)
+- [x] Sidebar scrolls when the fleet list is long; footer no longer overlaps (2026-09-27)
+- [x] Dev-only createRoot console errors on hot reload (2026-09-27)
+- [~] Gantt card scrolls sideways under ~1000px — kept: the chart scrolls inside its own card, the page doesn't

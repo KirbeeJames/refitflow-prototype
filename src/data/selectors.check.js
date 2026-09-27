@@ -28,4 +28,9 @@ assert.ok(!pairs.includes('m1,m2'), 'shipyard parallel work not flagged');
 assert.equal(s.programme(st.vessels[0], '2026-09-25').week, 10);
 assert.equal(s.classSummary(st, 'haven', '2026-09-25').nearestCoc.item.id, 'h4');
 
+const terms = s.extractContractTerms('Shipyard: Northstar Shipyard\nContract price EUR 1.460.000 payable in stages.\nWorks from 2026-07-20 to 2027-01-04.\nThis contract is governed by the laws of England.\nWarranty: 6 months from redelivery.');
+assert.deepEqual(terms, { value: 1460000, startDate: '2026-07-20', endDate: '2027-01-04', governingLaw: 'England law', warranty: '6 months from redelivery', shipyardName: 'Northstar Shipyard' });
+assert.equal(s.suggestCostBasis(st.contracts[0], 'Price escalation'), 'Contract clause 6.1 (Price adjustment for materials)');
+assert.equal(s.itemCompletion({ status: 'In progress', percentComplete: 80 }), 0.8);
+
 console.log('selectors ok');
