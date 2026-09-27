@@ -36,4 +36,5 @@
 - [x] Dependencies pinned (2026-09-27)
 - [x] Sidebar scrolls when the fleet list is long; footer no longer overlaps (2026-09-27)
 - [x] Dev-only createRoot console errors on hot reload (2026-09-27)
+- [x] Vercel builds with Vite (`vercel.json`); preview deployed from this branch (2026-09-27)
 - [~] Gantt card scrolls sideways under ~1000px — kept: the chart scrolls inside its own card, the page doesn't

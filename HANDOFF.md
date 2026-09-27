@@ -11,6 +11,7 @@ A SaaS tool for yacht management companies to run a vessel refit from contract s
 | Code (canonical) | `Dropbox/AI/APPs/RefitFlow` — clone of GitHub `KirbeeJames/refitflow-prototype` |
 | Original Codex build folder | `Documents/Codex/2026-09-18/i-just-brainstormed-with-claude-what` (not a git repo; superseded) |
 | Live URL (public) | https://refitflow-canonical-i28agowbb-jameskirbys-projects.vercel.app/ |
+| Latest preview (this branch) | https://refitflow-canonical-n9w6m2w0y-jameskirbys-projects.vercel.app/ |
 | Vercel project | `refitflow-canonical` (`prj_ymdJ8jFlCENWVbODtVffRywVMhL8`), SSO protection off |
 | Old Vercel project | `i-just-brainstormed-with-claude-what` — protection setting locked, can't be made public. Delete once canonical is confirmed. |
 | Original spec | Codex prompt (11 modules) — see chat history / `AGENTS.md` |
